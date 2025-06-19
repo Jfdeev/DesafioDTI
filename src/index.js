@@ -25,7 +25,6 @@ function main() {
             } else if (choice == '2') {
                 const products = repo.getProducts();
                 if (products.length === 0) {
-                    console.log('Nenhum produto encontrado.');
                     logger.info('Nenhum produto encontrado.');
                 } else {
                     console.log('Produtos:');
@@ -39,7 +38,6 @@ function main() {
                 if (product) {
                     console.log(`ID: ${product.id}, Nome: ${product.nome}, Preço: ${product.preco}, Categoria: ${product.categoria}, Estoque: ${product.estoque}`);
                 } else {
-                    console.log('Produto não encontrado.');
                     logger.info(`Produto com ID ${id} não encontrado.`);
                 }
             } else if (choice == '4') {
@@ -57,7 +55,6 @@ function main() {
                 logger.info(`Produto com ID ${id} deletado com sucesso!`);
             } else if (choice == '6') {
                 logger.info('Saindo do sistema...');
-                console.log('Saindo do sistema...');
                 break;
             } else {
                 console.log('Opção inválida. Tente novamente.');

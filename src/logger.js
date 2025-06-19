@@ -10,6 +10,5 @@ export const logger = createLogger({
     ),
     transports: [
         new transport.File({ filename: 'logs/app.log' }),
-        new transport.Console()
     ]
 })
