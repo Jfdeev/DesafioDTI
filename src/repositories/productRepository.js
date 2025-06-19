@@ -11,6 +11,11 @@ export function getProducts() {
   return stmt.all();
 }
 
+export function getProductById(id) {
+    const stmt = db.prepare('SELECT * FROM produtos WHERE id = ?');
+    return stmt.get(id);
+}
+
 export function updateProduct(id, product) {
     const { nome, preco, categoria, estoque } = product;
     const stmt = db.prepare('UPDATE produtos SET nome = ?, preco = ?, categoria = ?, estoque = ? WHERE id = ?');
