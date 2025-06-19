@@ -1,10 +1,15 @@
 import { db } from "../db.js";
 
 export function createProduct(product) {
-  const { nome, preco, categoria, estoque } = product;
-  const stmt = db.prepare('INSERT INTO produtos (nome, preco, categoria, estoque) VALUES (?, ?, ?, ?)');
-  return stmt.run(nome, preco, categoria, estoque);
-}
+    const { nome, preco, categoria, estoque, data_vencimento } = product;
+  
+    const stmt = db.prepare(`
+      INSERT INTO produtos (nome, preco, categoria, estoque, data_vencimento)
+      VALUES (?, ?, ?, ?, ?)
+    `);
+  
+    return stmt.run(nome, preco, categoria, estoque, data_vencimento || null);
+  }
 
 export function getProducts() {
   const stmt = db.prepare('SELECT * FROM produtos');

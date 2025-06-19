@@ -1,6 +1,5 @@
 import readline from 'readline-sync';
-import { logger } from './logger.js';
-import * as repo from './repositories/productRepository.js';
+import * as service from './services/productService.js';
 
 function main() {
     while (true) {
@@ -11,63 +10,64 @@ function main() {
         console.log('4. Atualizar Produto');
         console.log('5. Deletar Produto');
         console.log('6. Sair');
+
         const choice = readline.question('Escolha uma opção: ');
 
         try {
-            if(choice == '1'){
+            if (choice === '1') {
                 const nome = readline.question('Nome do Produto: ');
                 const preco = parseFloat(readline.question('Preço do Produto: '));
                 const categoria = readline.question('Categoria do Produto: ');
                 const estoque = parseInt(readline.question('Quantidade em Estoque: '));
-                
-                repo.createProduct({ nome, preco, categoria, estoque });
+                const data_vencimento = readline.question('Data de Vencimento YYYY-MM-DD (Opcional): ');
+
+                service.createProduct({ nome, preco, categoria, estoque, data_vencimento });
                 console.log(`Produto "${nome}" criado com sucesso!`);
-                logger.info(`Produto "${nome}" criado com sucesso!`);
-            } else if (choice == '2') {
-                const products = repo.getProducts();
-                if (products.length === 0) {
-                    console.log('Nenhum produto encontrado.');
-                    logger.info('Nenhum produto encontrado.');
-                } else {
-                    console.log('Produtos:');
-                    products.forEach(product => {
-                        console.log(`ID: ${product.id}, Nome: ${product.nome}, Preço: ${product.preco}, Categoria: ${product.categoria}, Estoque: ${product.estoque}`);
-                    });
-                }
-            } else if (choice == '3') {
+            }
+
+            else if (choice === '2') {
+                const products = service.getProducts();
+                console.log('Lista de Produtos:');
+                products.forEach(product => {
+                    console.log(`ID: ${product.id}, Nome: ${product.nome}, Preço: ${product.preco}, Categoria: ${product.categoria}, Estoque: ${product.estoque} ${product.data_vencimento ? `, Data de Vencimento: ${product.data_vencimento}` : ''}`);
+                });
+            }
+
+            else if (choice === '3') {
                 const id = parseInt(readline.question('ID do Produto: '));
-                const product = repo.getProductById(id);
-                if (product) {
-                    console.log(`ID: ${product.id}, Nome: ${product.nome}, Preço: ${product.preco}, Categoria: ${product.categoria}, Estoque: ${product.estoque}`);
-                } else {
-                    console.log(`Produto com ID ${id} não encontrado.`);
-                    logger.info(`Produto com ID ${id} não encontrado.`);
-                }
-            } else if (choice == '4') {
+                const product = service.getProductById(id);
+                console.log(`ID: ${product.id}, Nome: ${product.nome}, Preço: ${product.preco}, Categoria: ${product.categoria}, Estoque: ${product.estoque} ${product.data_vencimento ? `, Data de Vencimento: ${product.data_vencimento}` : ''}`);
+            }
+
+            else if (choice === '4') {
                 const id = parseInt(readline.question('ID do produto: '));
                 const nome = readline.question('Novo Nome do Produto: ');
                 const preco = parseFloat(readline.question('Novo Preço do Produto: '));
                 const categoria = readline.question('Nova Categoria do Produto: ');
                 const estoque = parseInt(readline.question('Nova Quantidade em Estoque: '));
+                const data_vencimento = readline.question('Nova Data de Vencimento YYYY-MM-DD (Opcional): ');
 
-                repo.updateProduct(id, { nome, preco, categoria, estoque });
+                service.updateProduct(id, { nome, preco, categoria, estoque, data_vencimento });
                 console.log(`Produto com ID ${id} atualizado com sucesso!`);
-                logger.info(`Produto com ID ${id} atualizado com sucesso!`);
-            } else if (choice == '5') {
-                const id = parseInt(readline.question('ID do produto a ser deletado: '));
-                repo.deleteProduct(id);
-                console.log(`Produto com ID ${id} deletado com sucesso!`);
-                logger.info(`Produto com ID ${id} deletado com sucesso!`);
-            } else if (choice == '6') {
-                console.log('Saindo do sistema...');
-                logger.info('Saindo do sistema...');
-                break;
-            } else {
-                console.log('Opção inválida. Tente novamente.');
-                logger.warn('Opção inválida selecionada.');
             }
+
+            else if (choice === '5') {
+                const id = parseInt(readline.question('ID do produto a ser deletado: '));
+                service.deleteProduct(id);
+                console.log(`Produto com ID ${id} deletado com sucesso!`);
+            }
+
+            else if (choice === '6') {
+                console.log('Saindo do sistema...');
+                break;
+            }
+
+            else {
+                console.log('Opção inválida. Tente novamente.');
+            }
+
         } catch (error) {
-            logger.error(`Erro: ${error.message}`);
+            console.log(`Erro: ${error.message}`);
         }
     }
 }

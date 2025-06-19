@@ -9,6 +9,7 @@ db.exec(`
         nome TEXT NOT NULL,
         preco REAL NOT NULL,
         categoria TEXT NOT NULL,
-        estoque INTEGER NOT NULL DEFAULT 0
+        estoque INTEGER NOT NULL DEFAULT 0,
+        data_vencimento DATE
     );
   `);
