@@ -21,10 +21,12 @@ function main() {
                 const estoque = parseInt(readline.question('Quantidade em Estoque: '));
                 
                 repo.createProduct({ nome, preco, categoria, estoque });
+                console.log(`Produto "${nome}" criado com sucesso!`);
                 logger.info(`Produto "${nome}" criado com sucesso!`);
             } else if (choice == '2') {
                 const products = repo.getProducts();
                 if (products.length === 0) {
+                    console.log('Nenhum produto encontrado.');
                     logger.info('Nenhum produto encontrado.');
                 } else {
                     console.log('Produtos:');
@@ -38,6 +40,7 @@ function main() {
                 if (product) {
                     console.log(`ID: ${product.id}, Nome: ${product.nome}, Preço: ${product.preco}, Categoria: ${product.categoria}, Estoque: ${product.estoque}`);
                 } else {
+                    console.log(`Produto com ID ${id} não encontrado.`);
                     logger.info(`Produto com ID ${id} não encontrado.`);
                 }
             } else if (choice == '4') {
@@ -48,12 +51,15 @@ function main() {
                 const estoque = parseInt(readline.question('Nova Quantidade em Estoque: '));
 
                 repo.updateProduct(id, { nome, preco, categoria, estoque });
+                console.log(`Produto com ID ${id} atualizado com sucesso!`);
                 logger.info(`Produto com ID ${id} atualizado com sucesso!`);
             } else if (choice == '5') {
                 const id = parseInt(readline.question('ID do produto a ser deletado: '));
                 repo.deleteProduct(id);
+                console.log(`Produto com ID ${id} deletado com sucesso!`);
                 logger.info(`Produto com ID ${id} deletado com sucesso!`);
             } else if (choice == '6') {
+                console.log('Saindo do sistema...');
                 logger.info('Saindo do sistema...');
                 break;
             } else {
