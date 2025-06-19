@@ -1,10 +1,11 @@
 {
   "name": "desafiodti",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "node src/index.js",
+    "start": "node src/index.js",
     "test": "jest"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^11.10.0",
+    "readline-sync": "^1.4.10",
     "winston": "^3.17.0"
   },
   "devDependencies": {
