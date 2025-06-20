@@ -1,7 +1,7 @@
 import * as repo from '../repositories/productRepository.js';
 import { logger } from '../logger.js';
 
-export function createProduct(product) {
+function createProduct(product) {
     const { nome, preco, categoria, estoque, data_vencimento } = product;
 
     try {
@@ -38,7 +38,7 @@ export function createProduct(product) {
     }
 }
 
-export function getProducts() {
+function getProducts() {
     try {
         const products = repo.getProducts();
         if (!Array.isArray(products)) {
@@ -55,7 +55,7 @@ export function getProducts() {
     }
 }
 
-export function getProductById(id) {
+function getProductById(id) {
     try {
         if (isNaN(id)) {
             throw new Error('ID deve ser um número');
@@ -72,7 +72,7 @@ export function getProductById(id) {
     }
 }
 
-export function updateProduct(id, product) {
+function updateProduct(id, product) {
     try {
         if (isNaN(id)) {
             throw new Error('ID deve ser um número');
@@ -91,7 +91,7 @@ export function updateProduct(id, product) {
     }
 }
 
-export function deleteProduct(id) {
+function deleteProduct(id) {
     try {
         if (isNaN(id)) {
             throw new Error('ID deve ser um número');
@@ -108,4 +108,12 @@ export function deleteProduct(id) {
         logger.error(`Erro ao deletar produto: ${error.message}`);
         throw error;
     }
+}
+
+export {
+    createProduct,
+    getProducts,
+    getProductById,
+    updateProduct,
+    deleteProduct
 }
