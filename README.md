@@ -55,7 +55,7 @@ rm database.db
 npm start
 ```
 
-### 🐳 Execução via Docker (opcional)
+### 🐳 Execução via Docker
 
 ```bash
 # Build da imagem
@@ -129,25 +129,3 @@ logs/app.log
 * Erros de entrada e validação
 * Execuções inválidas
 
----
-
-## 📚 Estrutura de Pastas
-
-```
-.
-├── src
-│   ├── db.js
-│   ├── index.js
-│   ├── logger.js
-│   ├── repositories
-│   │   └── productRepository.js
-│   └── services
-│       └── productService.js
-├── logs
-│   └── app.log
-├── tests
-│   └── product.test.js
-├── package.json
-├── Dockerfile
-└── .gitignore
-```
