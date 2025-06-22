@@ -6,7 +6,7 @@ Esta aplicação é um sistema de **CRUD de produtos** executado no terminal. Pe
 
 ---
 
-## 📦 Recurso escolhido: **Produto**
+## 📆 Recurso escolhido: **Produto**
 
 ### ✅ Atributos e suas propriedades
 
@@ -27,6 +27,7 @@ Esta aplicação é um sistema de **CRUD de produtos** executado no terminal. Pe
 * **Winston** (para logging)
 * **readline-sync** (interface no terminal)
 * **Docker** (opcional)
+* **Jest** (para testes unitários)
 
 ---
 
@@ -129,3 +130,40 @@ logs/app.log
 * Erros de entrada e validação
 * Execuções inválidas
 
+---
+
+## 🦚 Testes Unitários com Jest
+
+A aplicação conta com uma suíte de **testes unitários** desenvolvida com **Jest**, cobrindo todas as regras de negócio da camada de `services`. Os testes garantem o correto funcionamento das operações de criação, listagem, busca, atualização e exclusão de produtos.
+
+### 🛠️ Como executar os testes
+
+Antes de rodar os testes, verifique se as dependências estão instaladas:
+
+```bash
+npm install
+```
+
+Em seguida, execute os testes com:
+
+```bash
+npm test
+```
+
+> ⚠️ A flag `--experimental-vm-modules` é utilizada automaticamente no `package.json` para suporte a ES Modules no Jest.
+
+### 📊 Arquivo de testes incluído
+
+```
+tests/
+└── product.test.js
+```
+
+Esse arquivo cobre os seguintes cenários:
+
+* ✅ Criação de produtos válidos
+* ❌ Validação de dados obrigatórios e duplicidade
+* 🔍 Busca de produtos por ID com tratamento de erro
+* ✏️ Atualização com verificação de existência
+* ❌ Tentativas de atualização e exclusão com ID inválido
+* 🗑️ Exclusão com verificação de existência
